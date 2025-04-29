@@ -24,10 +24,9 @@ const defaultOptions: SignOptions = {
 };
 
 export const accessTokenSignOptions: SignOptionsWithSecret = {
-  expiresIn: "15m",
+  expiresIn: "7d",
   secret: ACCESS_TOKEN_SECRET,
 };
-
 export const refreshTokenSignOptions: SignOptionsWithSecret = {
   expiresIn: "30d",
   secret: REFRESH_TOKEN_SECRET,
