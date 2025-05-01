@@ -1,18 +1,15 @@
 import jwt, { SignOptions, VerifyOptions } from "jsonwebtoken";
-import {
-  ACCESS_TOKEN_SECRET,
-  REFRESH_TOKEN_SECRET,
-} from "../constants/getEnv";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../constants/getEnv";
 import ApiError from "../API/ApiError";
 import { INTERNAL_SERVER_ERROR } from "../constants/http";
 type AccessTokenParams = {
   userId: string;
-  sessionId?: string
+  sessionId?: string;
 };
 
 type RefreshTokenParams = {
   userId: string;
-  sessionId?: string
+  sessionId?: string;
 };
 
 type SignOptionsWithSecret = SignOptions & {

@@ -4,6 +4,7 @@ import { DataTable } from "@/components/app-ui/DataTable";
 import LinkShortner from "@/components/app-ui/LinkShortner";
 import Container from "@/components/common/Container";
 import GradientText from "@/components/common/GradientText";
+import { AccordionDataTable } from "@/components/common/mobileData";
 import { useTypeSelector } from "@/store/store";
 import { GoQuestion } from "react-icons/go";
 import { IoArrowDownSharp } from "react-icons/io5";
@@ -33,12 +34,14 @@ export default function HomePage() {
           {/* inform */}
           <p className="text-gray-400 text-[13.5px] font-normal text-center max-w-2xl flex gap-1 items-center justify-center flex-wrap">
             You can create{" "}
-            <span className="font-bold text-pink-600 text-[14px]"> 0{currentLimit} </span>{" "}
+            <span className="font-bold text-pink-600 text-[14px]">
+              {" "}
+              {currentLimit}{" "}
+            </span>{" "}
             more links. Register Now to enjoy unlimited usages{" "}
             <GoQuestion title="These rules are important" />
           </p>
         </section>
-
         {/* example links */}
         <section id="try" className="flex flex-col py-5">
           <div className="flex flex-col items-center justify-center space-y-2">
@@ -48,7 +51,8 @@ export default function HomePage() {
             </span>
           </div>
           <div className="">
-            <DataTable data={tableDataForHome} />
+            <DataTable className="hidden sm:flex" data={tableDataForHome} />
+            <AccordionDataTable className="sm:hidden" data={tableDataForHome} />
           </div>
         </section>
       </Container>

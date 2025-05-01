@@ -46,19 +46,22 @@ export const shortenUrlForUser = createAsyncThunk(
 );
 
 // get short url data
-export const getShortUrls = createAsyncThunk("uri/getShortUrls", async () => {
-  try {
-    const response = await API.get(uriDataRequest);
-    return response.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message);
-      return;
-    } else {
-      throw new Error("Error fetching short URL data");
+export const getShortUrls = createAsyncThunk(
+  "uri/getShortUrls",
+  async (page: string, thunkAPI) => {
+    try {
+      console.log("url bhai", uriDataRequest(page));
+      const response = await API.get(uriDataRequest(page));
+      return response.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      } else {
+        return thunkAPI.rejectWithValue("error in getting urls");
+      }
     }
   }
-});
+);
 
 // get short url data for user
 export const getShortUrl = createAsyncThunk(
@@ -137,6 +140,7 @@ interface UriState {
   isLoading: boolean;
   error: string | null;
   userUrls: ShortLink[];
+  currentPage: number;
 }
 
 const initialState: UriState = {
@@ -144,6 +148,7 @@ const initialState: UriState = {
   isLoading: false,
   error: null,
   userUrls: [],
+  currentPage: 1,
 };
 
 const uriSlice = createSlice({
@@ -156,6 +161,9 @@ const uriSlice = createSlice({
     clearData(state) {
       state.shortUrl = "";
       state.error = null;
+    },
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -261,6 +269,6 @@ const uriSlice = createSlice({
   },
 });
 
-export const { clearData, setShortUrl } = uriSlice.actions;
+export const { clearData, setShortUrl, setCurrentPage } = uriSlice.actions;
 const uriReduser = uriSlice.reducer;
 export default uriReduser;
